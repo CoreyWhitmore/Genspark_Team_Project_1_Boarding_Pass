@@ -12,7 +12,7 @@ public class Main {
         String[] generatedInfo = ETAPrice(userInfo[3], userInfo[4]);
         String boardingNum = generateBoardingNum();
         writeToFile(userInfo, generatedInfo, boardingNum);
-        System.out.println(userFriendlyTicket(userInfo, generatedInfo, boardingNum));
+        System.out.println("\n\n" + userFriendlyTicket(userInfo, generatedInfo, boardingNum));
     }
 
     //Gets necessary user input and outputs it as an array formatted as {name, email, phone, gender, age, date, destination, departure time}
@@ -20,21 +20,21 @@ public class Main {
         String[] inputs = new String[8];
 
         System.out.println("We are gong to need some information in order to process your boarding pass");
-        System.out.print("Please enter your full name:");
+        System.out.print("Please enter your full name: ");
         inputs[0] = in.nextLine();
-        System.out.print("Please enter your Email:");
+        System.out.print("Please enter your Email: ");
         inputs[1] = in.nextLine();
-        System.out.print("Please enter your Phone Number:");
+        System.out.print("Please enter your Phone Number in the format ###-###-####: ");
         inputs[2] = in.nextLine();
-        System.out.print("Please enter your Gender (M/F):");
+        System.out.print("Please enter your Gender (M/F): ");
         inputs[3] = in.nextLine();
-        System.out.print("Please enter your age:");
+        System.out.print("Please enter your age: ");
         inputs[4] = in.nextLine();
-        System.out.print("Please enter the date in the format MM/DD/YYYY:");
+        System.out.print("Please enter the date in the format MM/DD/YYYY: ");
         inputs[5] = in.nextLine();
-        System.out.print("Please enter your destination:");
+        System.out.print("Please enter your destination in the format State, City: ");
         inputs[6] = in.nextLine();
-        System.out.print("Please enter your Departure Time formatted as HH:MM");
+        System.out.print("Please enter your Departure Time formatted as HH:MM in 24-hour time: ");
         inputs[7] = in.nextLine();
 
         return inputs;
@@ -43,7 +43,7 @@ public class Main {
     //generate ETA and ticket price as {ETA, price}
     public static String[] ETAPrice (String gender, String age){
         String[] output = new String[2];
-        double ETA = rand.nextInt(570) + 30; //initial ETA is in minutes
+        int ETA = rand.nextInt(570) + 30; //initial ETA is in minutes
         double price = ETA * 75 + 2000; //initial price is in cents
         try{
             if(Integer.parseInt(age) >= 60){
@@ -59,7 +59,7 @@ public class Main {
             System.out.println("There was an error calculating discounts. Non-discounted value has been used instead");
         }
         //convert ETA and price into strings
-        output[0] = ETA / 60 + ":" + ETA % 60;
+        output[0] = ETA / 60 + "hours " + ETA % 60 + "minutes";
         output[1] = "$" + String.format("%.2f",price/100);
 
         return output;
@@ -107,7 +107,7 @@ public class Main {
                 "NAME: " + userInfo[0] + "   GENDER: " + userInfo[3] + "   AGE:" + userInfo[4] + "\n" +
                 "EMAIL: " + userInfo[1] + "   PHONE: " + userInfo[2] + "\n" +
                 "DEPARTURE TIME: " + userInfo[7] + "   DESTINATION: " + userInfo[6] + "\n" +
-                "TRIP DURATION:" + generatedInfo[0] + "TICKET PRICE: " + generatedInfo[1] + "\n" +
+                "TRIP DURATION:" + generatedInfo[0] + "   TICKET PRICE: " + generatedInfo[1] + "\n" +
                 "============================================================";
     }
 }
